@@ -41,6 +41,7 @@ public class Test1 implements CommandLineRunner {
 			System.out.println(movie.getTitle());
 
 		TypedQuery<User> query = em.createQuery("SELECT u FROM User u JOIN u.rentals r WHERE r.movie.title = :movie", User.class);
+		// Aufgabe 2, bidirektionales Query: "SELECT m.user FROM Movie m WHERE m.title =:movie"
 		query.setParameter("movie", movie.getTitle());
 
 		List<User> users = query.getResultList();
