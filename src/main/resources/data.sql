@@ -1,5 +1,6 @@
 INSERT INTO USER (ID, EMAIL, FIRST_NAME, LAST_NAME) VALUES(1, 'peter.muster@fhnw.ch', 'Peter', 'Muster');
 INSERT INTO USER (ID, EMAIL, FIRST_NAME, LAST_NAME) VALUES(2, 'juerg.luthiger@fhnw.ch', 'Juerg', 'Luhthiger');
+INSERT INTO USER (ID, EMAIL, FIRST_NAME, LAST_NAME) VALUES(3, 'paul.muster@fhnw.ch', 'Paul', 'Muster');
 
 INSERT INTO MOVIE (ID, TITLE, RENTED, RELEASE_DATE) VALUES(1, 'Ex Machina', '1', '2017-07-14');
 INSERT INTO MOVIE (ID, TITLE, RENTED, RELEASE_DATE) VALUES(2, 'Paddington', '0', '2017-04-28');

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
@@ -29,9 +30,29 @@ public class Test1 implements CommandLineRunner {
 	@Override
 	@Transactional
 	public void run(String... args) throws Exception {
-		test1();
+		// test1();
+		// testReturnValue();
+		testPrimitiveDistinct();
 		System.out.println("done");
 		// System.exit(0); // if you do not want to inspect the DB using the h2 console
+	}
+
+	private void testReturnValue() {
+		Query query = em.createQuery("SELECT u.firstName, u.lastName FROM User u");
+		List<Object[]> result = query.getResultList();
+
+		for (Object[] names : result) {
+			System.out.println(names[0] + ", " + names[1]);
+		}
+	}
+
+	private void testPrimitiveDistinct() {
+		TypedQuery<String> query = em.createQuery("SELECT DISTINCT u.lastName FROM User u", String.class);
+		List<String> result = query.getResultList();
+		for (String lastName : result) {
+			System.out.println(lastName);
+		}
+
 	}
 
 	private void test1() {
@@ -40,9 +61,11 @@ public class Test1 implements CommandLineRunner {
 		if (movie != null)
 			System.out.println(movie.getTitle());
 
-		TypedQuery<User> query = em.createQuery("SELECT u FROM User u JOIN u.rentals r WHERE r.movie.title = :movie", User.class);
-		// Aufgabe 2, bidirektionales Query: "SELECT r.user FROM Rental r WHERE r.movie.title =:movie"
-		query.setParameter("movie", movie.getTitle());
+		TypedQuery<User> query = em.createQuery("SELECT u FROM User u JOIN u.rentals r WHERE r.movie.title = :movie",
+				User.class);
+		// Aufgabe 2, bidirektionales Query: "SELECT r.user FROM Rental r WHERE
+		// r.movie.title =:movie"
+		query.setParameter("movie", movie.getTitle());		
 
 		List<User> users = query.getResultList();
 		if (users.size() == 0) {
